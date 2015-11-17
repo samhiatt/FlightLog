@@ -1,0 +1,112 @@
+<md-toolbar class="md-tall" scroll-shrink layout-align="start start">
+
+	<span class="md-toolbar-tools md-toolbar-tools-top">
+		<md-button ng-click="appController.openMainMenu()" aria-label="Open main menu">
+            <md-icon md-svg-icon="navigation:ic_menu_24px"></md-icon>
+        </md-button>
+	</span>
+
+    <span flex></span>
+
+    <h2 class="md-toolbar-tools md-toolbar-tools-bottom toolbar-tools-fab-overlap">
+        <span>Flights List</span>
+    </h2>
+
+	<a ui-sref="flight.list.create">
+    <md-button hide show-gt-md ng-if="list.flights.length" class="md-fab md-accent md-fab-top-left fab-overlap" aria-label="Create a new flight">
+        <md-icon md-svg-icon="content:ic_add_24px"></md-icon>
+    </md-button>
+	</a>
+
+</md-toolbar>
+
+<div ng-if="list.flights.length" id="flight-items-content" flex>
+
+	<md-list layout="column">
+
+		<md-item class="list-head" hide-sm>
+
+			<md-item-content>
+                <div class="md-tile-content" flex>
+                    <h4>Date</h4>
+                </div>
+				<div class="md-tile-content" flex>
+					<h4>Start Time</h4>
+				</div>
+				<div class="md-tile-content" flex>
+					<h4>End Time</h4>
+				</div>
+				<div class="md-tile-content" flex hide show-gt-md>
+					<h4>Site</h4>
+				</div>
+				<div class="md-tile-content" flex hide show-gt-md>
+					<h4>Wing</h4>
+				</div>
+				<div class="md-tile-content" flex>
+					<h4>Launch Zone</h4>
+				</div>
+				<div class="md-tile-content" flex>
+					<h4>Landing Zone</h4>
+				</div>
+			</md-item-content>
+
+			<md-divider md-inset></md-divider>
+
+		</md-item>
+
+		<md-item ng-repeat="flight in list.flights"
+				ng-click="items.showInDetails(flight)"
+				ng-class="{'selected': items.isSelected(flight)}">
+
+			<md-item-content layout-wrap>
+
+				<div class="md-tile-left">
+				    <list-image string="{{flight.flightNumber}}"></list-image>
+				</div>
+
+				<div class="md-tile-content">{{flight.date}}</div>
+
+				<!-- TODO: get timezone from flying site and set properly -->
+				<div class="md-tile-content">{{flight.startTime | date:'h:mm a' }}</div>
+
+				<div class="md-tile-content">{{flight.endTime | date:'h:mm a'}}</div>
+				
+				<div class="md-tile-content" hide show-gt-md>{{flight.siteId}}</div>
+
+				<div class="md-tile-content" hide show-gt-md>{{flight.wing}}</div>
+
+				<div class="md-tile-content">{{flight.launchZone}}</div>
+				
+				<div class="md-tile-content">{{flight.landingZone}}</div>
+
+			</md-item-content>
+
+			<md-item-content layout-padding class="notes">
+				{{flight.notes}}
+			</md-item-content>
+
+			<md-divider md-inset></md-divider>
+
+		</md-item>
+
+	</md-list>
+
+</md-content>
+
+<md-content ng-if="!list.flights.length">
+	<md-card>
+		<md-card-content>
+			<h2>No Flights found</h2>
+			<p>
+				There are no Flights!
+				<a ui-sref="flight.list.create">Create one!</a>
+			</p>
+		</md-card-content>
+	</md-card>
+</md-content>
+
+<a ui-sref="flight.list.create">
+	<md-button hide-gt-md ui-sref="flight.list.create" class="md-fab md-accent md-fab-bottom-right" aria-label="Create a new flight">
+	    <md-icon md-svg-icon="content:ic_add_24px"></md-icon>
+	</md-button>
+</a>

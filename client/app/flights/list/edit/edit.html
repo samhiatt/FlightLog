@@ -1,0 +1,46 @@
+<md-toolbar class="md-hue-1 md-tall">
+
+	<span layout="row" layout-align="space-between" class="md-toolbar-tools md-toolbar-tools-top">
+		<md-button ng-click="edit.goBack()" aria-label="Back to detail view">
+            <md-icon md-svg-icon="navigation:ic_arrow_back_24px"></md-icon>
+        </md-button>
+		<md-button ng-click="edit.remove(editForm, $event)" aria-label="Delete flight">
+            <md-icon md-svg-icon="action:ic_delete_24px"></md-icon>
+        </md-button>
+	</span>
+
+	<span class="md-toolbar-tools md-toolbar-tools-bottom" layout="column">
+		<h3>{{edit.displayName}}</h3>
+	</span>
+
+</md-toolbar>
+
+<md-button class="md-accent md-fab md-fab-bottom-right fab-overlap"
+           aria-label="Save flight"
+           ng-click="edit.update(editForm)"
+           ng-disabled="!editForm.$dirty || editForm.$invalid">
+    <md-icon md-svg-icon="action:ic_done_24px"></md-icon>
+</md-button>
+
+<md-content class="md-padding" flex id="flight-edit-content">
+
+    <form name="editForm">
+
+        <section class="section" layout="column">
+
+            <span class="section-title">Flight data</span>
+
+
+			<span layout="row" layout-sm="column">
+				<md-input-container flex>
+                    <label>Notes</label>
+                    <input name="notes" ng-model="edit.flight.notes" >
+                </md-input-container>
+			</span>
+
+
+        </section>
+
+    </form>
+
+</md-content>
